@@ -1,21 +1,26 @@
 import React from 'react'
 import axios from "axios";
-export default function Login() {
+// import Configuration from '../config';
+// not the custom variable using default variable now 
+const BACKEND_URL=import.meta.env.VITE_SOME_KEY;
 
+// const BACKEND_URL=Configuration()
+export default  function Login() {
+    
     const [data,setData]=React.useState({
         username:'',
         password:''
     });
-
-    const [result,setResult]=React.useState("")
+    // console.log(BACKEND_URL)
+  const [result,setResult]=React.useState("")
   const [protectedData,setProtectedData]=React.useState("")
-   const handleFormSubmission=async(e)=>{
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("username",data.username);
-    formData.append("password",data.password);
+  const handleFormSubmission=async(e)=>{
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append("username",data.username);
+      formData.append("password",data.password);
     try{
-          const response = await axios.post("http://192.168.1.3:5000/login",formData,{
+          const response = await axios.post(`${BACKEND_URL}/login`,formData,{
             headers:{
                  'Content-Type':'multipart/form-data'
             },
@@ -32,7 +37,7 @@ export default function Login() {
    const handleLogout=async(e)=>{
     e.preventDefault();
     try{
-        const response = await axios.get("http://192.168.1.3:5000/logout",{
+        const response = await axios.get(`${BACKEND_URL}/logout`,{
             withCredentials:true
         }
                      
@@ -45,7 +50,7 @@ export default function Login() {
 
    const onCheckUserName=async()=>{
         try{
-              const response = await axios.get("http://192.168.1.3:5000/protected",{
+              const response = await axios.get(`${BACKEND_URL}/protected`,{
                 withCredentials:true
               });
               setProtectedData(response.data.message)
