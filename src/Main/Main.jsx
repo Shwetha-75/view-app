@@ -54,7 +54,7 @@ export default  function Login() {
                 withCredentials:true
               });
               setProtectedData(response.data.message)
-
+              console.log(response.data.message)
         }catch(error){
             console.log(error)
         }
