@@ -42,7 +42,7 @@ export default  function Login() {
         }
                      
         )
-       setResult(response.data.status)
+       setResult(response.data.message)
     }catch(error){
         console.log(error)
     }
